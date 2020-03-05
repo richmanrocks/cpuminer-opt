@@ -69,6 +69,7 @@ cpuminer_SOURCES = \
   algo/bmw/bmw512-4way.c \
   algo/cubehash/cubehash_sse2.c\
   algo/cubehash/cube-hash-2way.c \
+  algo/curvehash/curvehash.c \
   algo/echo/sph_echo.c \
   algo/echo/echo-hash-4way.c \
   algo/echo/aes_ni/hash.c\
