@@ -762,14 +762,53 @@ void bin2hex(char *s, const unsigned char *p, size_t len)
 		sprintf(s + (i * 2), "%02x", (unsigned int) p[i]);
 }
 
+	
+void applog_rbe32_hex(const char *prefix, const uint32_t *data, size_t len)
+{
+    char* hex = arbe32tohex(data, len);
+    applog(LOG_DEBUG, "%s%s",prefix, hex);
+    free(hex);
+}
+void applog_be32_hex(const char *prefix, const uint32_t *data, size_t len)
+{
+    char* hex = abe32tohex(data, len);
+    applog(LOG_DEBUG, "%s%s",prefix, hex);
+    free(hex);
+}
+char *abe32tohex(const uint32_t *data, size_t len) {
+    int datasize = sizeof(uint32_t);
+    uint32_t *data_be = (uint32_t *) malloc(len * datasize);
+    for (int i = 0; i < len; i++) {
+        be32enc(data_be + i, data[i]);
+    }
+    char *hashhex = abin2hex((unsigned char *) data_be, (len * datasize));
+    free(data_be);
+    return hashhex;
+}
+char *arbe32tohex(const uint32_t *data, size_t len) {
+    int datasize = sizeof(uint32_t);
+    uint32_t *data_be = (uint32_t *) malloc(len * datasize);
+    for (int i = 0; i < len; i++) {
+        be32enc(data_be + i, data[len - 1 - i]);
+    }
+    char *hashhex = abin2hex((unsigned char *) data_be, (len * datasize));
+    free(data_be);
+    return hashhex;
+}
 char *abin2hex(const unsigned char *p, size_t len)
 {
 	char *s = (char*) malloc((len * 2) + 1);
-	if (!s)
-		return NULL;
-	bin2hex(s, p, len);
-	return s;
+	char s[128] = {'\0'};
+	applog(LOG_DEBUG, "%s", format_hash(s, (uchar*) hash));
 }
+	
+void applog_hex_prefix(void *prefix, void *data, int len)
+{
+    char* hex = abin2hex((uchar*)data, len);
+    applog(LOG_DEBUG, "%s%s",prefix, hex);
+    free(hex);
+}
+	
 
 bool hex2bin(unsigned char *p, const char *hexstr, size_t len)
 {
