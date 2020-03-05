@@ -539,7 +539,8 @@ enum algos {
         ALGO_C11,         
         ALGO_CRYPTOLIGHT, 
         ALGO_CRYPTONIGHT,
-        ALGO_CRYPTONIGHTV7, 
+        ALGO_CRYPTONIGHTV7,
+	ALGO_CURVEHASH,
         ALGO_DECRED,
         ALGO_DEEP,
         ALGO_DMD_GR,
@@ -634,6 +635,7 @@ static const char* const algo_names[] = {
         "cryptolight",
         "cryptonight",
         "cryptonightv7",
+	"curvehash",
         "decred",
         "deep",
         "dmd-gr",
@@ -793,6 +795,7 @@ Options:\n\
                           cryptolight   Cryptonight-light\n\
                           cryptonight   Cryptonote legacy\n\
                           cryptonightv7 variant 7, Monero (XMR)\n\
+			  curvehash	Curvehash, Violette\n\
                           decred        Blake256r14dcr\n\
                           deep          Deepcoin (DCN)\n\
                           dmd-gr        Diamond\n\
