@@ -8,6 +8,9 @@ AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 
+dnl Libtool init checks.
+LT_INIT([pic-only])
+
 dnl Make sure anyone changing configure.ac/Makefile.am has a clue
 AM_MAINTAINER_MODE
 
@@ -163,7 +166,7 @@ fi
 
 CFLAGS="$CFLAGS $LIBCURL_CFLAGS"
 CPPFLAGS="$CPPFLAGS $LIBCURL_CPPFLAGS"
-LDFLAGS="$LDFLAGS $LIBCURL_LDFLAGS"
+LDFLAGS="$LDFLAGS"
 
 #AC_CHECK_LIB([z],[gzopen],[],[])
 #AC_CHECK_LIB([crypto],[OPENSSL_init], crypto=yes, [AC_MSG_ERROR([OpenSSL crypto library required])])
@@ -185,6 +188,7 @@ AC_SUBST(JANSSON_LIBS)
 AC_SUBST(PTHREAD_FLAGS)
 AC_SUBST(PTHREAD_LIBS)
 AC_SUBST(WS2_LIBS)
+AC_CONFIG_SUBDIRS([secp256k1])
 
 AC_CONFIG_FILES([
 	Makefile
@@ -192,3 +196,12 @@ AC_CONFIG_FILES([
 	compat/jansson/Makefile
 	])
 AC_OUTPUT
+echo
+echo "  CC            = $CC"
+echo "  CFLAGS        = $CFLAGS"
+echo "  CPPFLAGS      = $CPPFLAGS"
+echo "  CXX           = $CXX"
+echo "  CXXFLAGS      = $CXXFLAGS"
+echo "  LDFLAGS       = $LDFLAGS"
+echo "  ARFLAGS       = $ARFLAGS"
+echo
