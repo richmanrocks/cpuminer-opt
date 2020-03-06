@@ -13,7 +13,14 @@
 #include <string.h>
 #include <inttypes.h>
 #include <secp256k1.h>
-#include <openssl/sha.h>
+#ifdef _MSC_VER
+
+#define ROTL(a, b) _rotl(a,b)
+#define ROTR(a, b) _rotr(a,b)
+#else
+#define ROTL(a, b) (((a) << b) | ((a) >> (32 - b)))
+#define ROTR(a, b) ((a >> b) | (a << (32 - b)))
+#endif
 
 static void sha256_hash(unsigned char *hash, const unsigned char *data, int len) {
     SHA256_CTX ctx;
