@@ -313,6 +313,10 @@ size_t address_to_script( unsigned char *out, size_t outsz, const char *addr );
 int    timeval_subtract( struct timeval *result, struct timeval *x,
                            struct timeval *y);
 
+int scanhash_curvehash(int thr_id, struct work *work, uint32_t max_nonce, uint64_t *hashes_done);
+
+
+
 // Bitcoin formula for converting difficulty to an equivalent
 // number of hashes.
 //
@@ -374,6 +378,13 @@ void   cpu_brand_string( char* s );
 
 float cpu_temp( int core );
 */
+
+void bin2hex(char *s, const unsigned char *p, size_t len);
+void applog_be32_hex(const char *prefix, const uint32_t *data, size_t len);
+void applog_rbe32_hex(const char *prefix, const uint32_t *data, size_t len);
+char *arbe32tohex(const uint32_t *data, size_t len);
+char *abe32tohex(const uint32_t *data, size_t len);
+
 
 struct work {
 	uint32_t data[48] __attribute__ ((aligned (64)));
@@ -490,6 +501,9 @@ void print_hash_tests(void);
 void scale_hash_for_display ( double* hashrate, char* units );
 
 void report_summary_log( bool force );
+
+void applog_hex_prefix(void *prefix, void *data, int len);
+
 
 /*
 struct thr_info {
