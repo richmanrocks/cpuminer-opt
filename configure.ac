@@ -142,6 +142,9 @@ else
 	JANSSON_LIBS=-ljansson
 fi
 
+SECP256K1_LIBS=-llibsecp256k1
+
+
 # libcurl install path (for mingw : --with-curl=/usr/local)
 AC_ARG_WITH([curl],
    [  --with-curl=PATH         prefix where curl is installed [default=/usr]])
@@ -188,7 +191,12 @@ AC_SUBST(JANSSON_LIBS)
 AC_SUBST(PTHREAD_FLAGS)
 AC_SUBST(PTHREAD_LIBS)
 AC_SUBST(WS2_LIBS)
+
+AC_SUBST(LIBTOOL_APP_LDFLAGS)
+ac_configure_args="${ac_configure_args} --disable-shared --with-pic --with-bignum=no --enable-module-recovery --disable-jni"
+AC_CONFIG_SUBDIRS([src/secp256k1])
 AC_CONFIG_SUBDIRS([secp256k1])
+
 
 AC_CONFIG_FILES([
 	Makefile
