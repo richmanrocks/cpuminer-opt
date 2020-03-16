@@ -798,9 +798,12 @@ char *arbe32tohex(const uint32_t *data, size_t len) {
 char *abin2hex(const unsigned char *p, size_t len)
 {
 	char *s = (char*) malloc((len * 2) + 1);
-	char s[128] = {'\0'};
-	applog(LOG_DEBUG, "%s", format_hash(s, (uchar*) hash));
+	if (!s)
+		return NULL;
+	bin2hex(s, p, len);
+	return s;
 }
+
 	
 void applog_hex_prefix(void *prefix, void *data, int len)
 {
